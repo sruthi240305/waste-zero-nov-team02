@@ -38,7 +38,7 @@ export default function Messages() {
     // could fetch real conversations here; keeping sample data for now
     api.get('/settings').then(r => {
       if (r.data?.settings) setUserSettings(r.data.settings);
-    }).catch(() => {});
+    }).catch(() => { });
   }, []);
 
   function openHistoryFor(id) {
@@ -73,14 +73,11 @@ export default function Messages() {
   );
 
   return (
-<<<<<<< Updated upstream
-    <div className="min-h-screen p-6 bg-gray-50 dark:bg-[#0f172a]">
-      <div className="max-w-5xl mx-auto bg-white dark:bg-[#111827] rounded-xl shadow p-6">
-=======
+
     <div className="min-h-screen p-4 md:p-6 bg-gray-50">
       <div className="max-w-[1200px] mx-auto">
         <PageHeader title="Messages" subtitle="Conversations and AI assistant history." dropdownContent={renderHistory} />
->>>>>>> Stashed changes
+
 
         <div className="mt-4 bg-white rounded-xl shadow overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-0">
@@ -88,18 +85,13 @@ export default function Messages() {
             <main className="md:col-span-9 p-4 md:p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h3 className="text-lg font-semibold">{convos.find(c=>c.id===selected)?.title}</h3>
-                  <div className="text-sm text-gray-500">{convos.find(c=>c.id===selected)?.last}</div>
+                  <h3 className="text-lg font-semibold">{convos.find(c => c.id === selected)?.title}</h3>
+                  <div className="text-sm text-gray-500">{convos.find(c => c.id === selected)?.last}</div>
                 </div>
                 {/* removed unused Back to Dashboard button per UI cleanup */}
               </div>
 
-<<<<<<< Updated upstream
-        <div className="border border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6 text-center">
-          <p className="text-gray-500 dark:text-gray-400">
-            No messages yet.
-          </p>
-=======
+
               <div className="space-y-4">
                 {(messages[selected] || []).map((m) => (
                   <div key={m.id} className={`p-3 rounded-lg ${m.author === 'you' ? 'bg-waste-green/10 self-end' : 'bg-gray-100'}`}>
@@ -130,13 +122,13 @@ export default function Messages() {
                 ))}
               </div>
 
-              <form className="mt-6 flex gap-2" onSubmit={async (e)=>{
+              <form className="mt-6 flex gap-2" onSubmit={async (e) => {
                 e.preventDefault();
                 const text = e.target.elements.msg.value.trim();
-                if(!text) return;
+                if (!text) return;
                 const nextId = Date.now();
                 // append user's message
-                setMessages(prev=>({ ...prev, [selected]: [...(prev[selected]||[]), { id: nextId, author: 'you', text, time: 'Now' }] }));
+                setMessages(prev => ({ ...prev, [selected]: [...(prev[selected] || []), { id: nextId, author: 'you', text, time: 'Now' }] }));
                 e.target.reset();
 
                 // call assistant API
@@ -146,10 +138,10 @@ export default function Messages() {
                   const res = await api.post('/assistant', payload);
                   const reply = res.data?.reply || 'Sorry, no reply';
                   const botId = Date.now() + 1;
-                  setMessages(prev => ({ ...prev, [selected]: [...(prev[selected]||[]), { id: botId, author: 'bot', text: reply, time: 'Now' }] }));
+                  setMessages(prev => ({ ...prev, [selected]: [...(prev[selected] || []), { id: botId, author: 'bot', text: reply, time: 'Now' }] }));
                 } catch (err) {
                   const botId = Date.now() + 1;
-                  setMessages(prev => ({ ...prev, [selected]: [...(prev[selected]||[]), { id: botId, author: 'bot', text: 'Assistant error', time: 'Now' }] }));
+                  setMessages(prev => ({ ...prev, [selected]: [...(prev[selected] || []), { id: botId, author: 'bot', text: 'Assistant error', time: 'Now' }] }));
                 } finally {
                   setSending(false);
                 }
@@ -165,12 +157,12 @@ export default function Messages() {
               <p className="text-sm text-gray-600">Conversation details and quick actions will appear here.</p>
             </aside>
           </div>
->>>>>>> Stashed changes
+
         </div>
       </div>
     </div>
   );
 }
 
-    // Build history node and pass into PageHeader when rendering
-    // (we render inline below to keep logic local)
+// Build history node and pass into PageHeader when rendering
+// (we render inline below to keep logic local)
