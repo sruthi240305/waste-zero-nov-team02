@@ -1,33 +1,16 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< Updated upstream
-import {
-  LayoutDashboard,
-  CalendarCheck,
-  Leaf,
-  MessageSquare,
-  BarChart3,
-  User,
-  Settings,
-  HelpCircle,
-  Moon,
-  Sun,
-  LogOut,
-  Edit2
-} from "lucide-react";
-=======
+
 import { Camera, MapPin, Globe, Phone, Mail, Save, X, User } from "lucide-react";
->>>>>>> Stashed changes
+
 import "./Profile.css";
 
 const Profile = () => {
   const navigate = useNavigate();
-<<<<<<< Updated upstream
-  const [isDark, setIsDark] = useState(localStorage.getItem("dashDark") === "true");
-=======
+
   const fileInputRef = useRef(null);
 
->>>>>>> Stashed changes
+
   const [activeTab, setActiveTab] = useState("profile");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -64,80 +47,7 @@ const Profile = () => {
       document.head.appendChild(style);
     }
     style.textContent = `
-<<<<<<< Updated upstream
-      .dash-shell{
-        min-height:100vh;
-        display:flex;
-        color:${isDark ? "#e5e7eb" : "#111827"};
-        font-family:'Cause',sans-serif;
-        background: url("/image.png") center/cover no-repeat fixed;
-      }
-      .dash-overlay{
-        flex:1;
-        display:flex;
-        background:${isDark ? "rgba(17,24,39,0.86)" : "rgba(255,255,255,0.9)"};
-      }
-      .dash-sidebar{
-        width:220px;
-        background:${isDark ? "#0f172a" : "#ffffff"};
-        border-right:1px solid ${isDark ? "#1f2937" : "#e5e7eb"};
-        padding:1rem;
-        display:flex;
-        flex-direction:column;
-        gap:1.2rem;
-      }
-      .dash-brand{display:flex;align-items:center;gap:.65rem;}
-      .dash-brand img{width:38px;height:34px;object-fit:contain;}
-      .dash-brand .title{font-weight:800;font-size:1.05rem;}
-      .dash-role{font-size:.9rem;opacity:0.8;}
-      .dash-nav{display:flex;flex-direction:column;gap:.35rem;}
-      .dash-item{
-        display:flex;align-items:center;gap:.6rem;
-        padding:.65rem .75rem;border-radius:12px;border:1px solid transparent;
-        background:transparent;color:inherit;cursor:pointer;transition:.15s;
-      }
-      .dash-item:hover{background:${isDark ? "#1f2937" : "#f3f4f6"};}
-      .dash-item.active{
-        background:${isDark ? "#065f46" : "#e8f5ee"};
-        color:${isDark ? "#fff" : "#065f46"};
-        border-color:${isDark ? "transparent" : "rgba(6,95,70,0.3)"};
-      }
-      .dash-main{
-        flex:1;
-        padding:1.5rem 1.8rem 2.5rem;
-        overflow:auto;
-      }
-      .profile-card{
-        background:${isDark ? "#0f172a" : "#ffffff"};
-        border:1px solid ${isDark ? "#1f2937" : "#e5e7eb"};
-        border-radius:14px;
-        padding:1.5rem;
-        box-shadow:0 10px 30px rgba(0,0,0,0.08);
-      }
-      .field-card{
-        position:relative;
-        background:${isDark ? "#111827" : "#f9fafb"};
-        border:1px solid ${isDark ? "#1f2937" : "#e5e7eb"};
-        border-radius:12px;
-        padding:1rem 1.1rem;
-      }
-      .edit-btn{
-        position:absolute;
-        top:10px;
-        right:10px;
-        background:transparent;
-        border:none;
-        color:${isDark ? "#9ca3af" : "#6b7280"};
-        cursor:pointer;
-      }
-      .footer-bar{
-        width:100%;
-        text-align:center;
-        font-size:12px;
-        padding:10px 0;
-        color:${isDark ? "#e5e7eb" : "#111827"};
-      }
-=======
+
        .profile-container {
          background-color: #f3f4f6; /* Light gray background like standard dashboard */
          min-height: 100vh;
@@ -296,7 +206,7 @@ const Profile = () => {
          color: #6b7280;
          margin-top: 0.3rem;
        }
->>>>>>> Stashed changes
+
     `;
     return () => {
       if (style) document.head.removeChild(style);
@@ -366,48 +276,7 @@ const Profile = () => {
     fetchProfile();
   }, [navigate]);
 
-<<<<<<< Updated upstream
-  const navMain = [
-    { name: "Dashboard", icon: <LayoutDashboard size={18} />, path: "/dashboard" },
-    { name: "Schedule Pickup", icon: <CalendarCheck size={18} />, path: "/schedule" },
-    { name: "Opportunities", icon: <Leaf size={18} />, path: "/opportunities" },
-    { name: "Messages", icon: <MessageSquare size={18} />, path: "/messages" },
-    { name: "My Impact", icon: <BarChart3 size={18} />, path: "/impact" },
-  ];
 
-  const navSecondary = [
-    { name: "My Profile", icon: <User size={18} />, path: "/profile" },
-    { name: "Settings", icon: <Settings size={18} />, path: "/settings" },
-    { name: "Help & Support", icon: <HelpCircle size={18} />, path: "/help" },
-  ];
-
-  const isActive = (p) => window.location.pathname === p;
-  const role = localStorage.getItem("role") || "Admin";
-  const name = localStorage.getItem("name") || "User";
-
-  const profileFields = [
-    { label: "Full Name", value: userData?.fullName || userData?.username || "Not set" },
-    { label: "Email", value: userData?.email || "Not set" },
-    { label: "Location", value: userData?.location || "Not set" },
-    { label: "Skills", value: Array.isArray(userData?.skills) && userData.skills.length > 0 ? userData.skills.join(", ") : "Not set" },
-  ];
-
-  const handlePasswordChange = async () => {
-    setMessage({ type: "", text: "" });
-
-    if (!currentPassword || !newPassword || !confirmPassword) {
-      setMessage({ type: "error", text: "All fields are required" });
-      return;
-    }
-
-    if (newPassword !== confirmPassword) {
-      setMessage({ type: "error", text: "New passwords do not match" });
-      return;
-    }
-
-    if (newPassword.length < 6) {
-      setMessage({ type: "error", text: "Password must be at least 6 characters" });
-=======
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -427,52 +296,13 @@ const Profile = () => {
     if (editFields.website && !/^https?:\/\//.test(editFields.website)) {
       setMessage({ type: "error", text: "Website URL must start with http:// or https://" });
       window.scrollTo(0, 0);
->>>>>>> Stashed changes
+
       return;
     }
 
     try {
       const token = localStorage.getItem("token");
-<<<<<<< Updated upstream
-      const response = await fetch("http://localhost:5000/api/profile/password", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          currentPassword,
-          newPassword,
-          confirmPassword,
-        }),
-      });
 
-      const data = await response.json();
-
-      if (data.success) {
-        setMessage({ type: "success", text: "Password updated successfully!" });
-        setCurrentPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-      } else {
-        setMessage({ type: "error", text: data.message || "Failed to update password" });
-      }
-    } catch (error) {
-      setMessage({ type: "error", text: "An error occurred. Please try again." });
-    }
-  };
-
-
-  return (
-    <div className="dash-shell">
-      <div className="dash-overlay">
-        <aside className="dash-sidebar">
-          <div className="dash-brand">
-            <img src={logo} alt="logo" />
-            <div>
-              <div className="title">WasteZero</div>
-              <div className="dash-role">{role}</div>
-=======
       if (!token) {
         navigate("/login");
         return;
@@ -600,354 +430,192 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
->>>>>>> Stashed changes
+
             </div>
           </div>
 
-<<<<<<< Updated upstream
-          <div className="dash-nav">
-            {navMain.map((item) => (
-              <button
-                key={item.name}
-                className={`dash-item ${isActive(item.path) ? "active" : ""}`}
-                onClick={() => navigate(item.path)}
-              >
-                {item.icon}
-                <span>{item.name}</span>
-              </button>
-            ))}
+
+        {/* Basic Information */}
+        <div className="card">
+          <div className="card-title">
+            <Globe size={20} />
+            Basic Information
           </div>
-
-          <div className="dash-nav">
-            {navSecondary.map((item) => (
-              <button
-                key={item.name}
-                className={`dash-item ${isActive(item.path) ? "active" : ""}`}
-                onClick={() => navigate(item.path)}
-              >
-                {item.icon}
-                <span>{item.name}</span>
-              </button>
-            ))}
-          </div>
-
-          <div
-            className="mode-toggle"
-            onClick={() => {
-              const next = !isDark;
-              setIsDark(next);
-              localStorage.setItem("dashDark", String(next));
-              localStorage.setItem("darkMode", String(next));
-            }}
-          >
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
-            <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
-          </div>
-
-          <button className="dash-item" onClick={() => navigate("/login")}>
-            <LogOut size={18} />
-            <span>Logout</span>
-          </button>
-
-          <div className="dash-footer">© 2024 WasteZero</div>
-        </aside>
-
-        <main className="dash-main">
-          {loading ? (
-            <div className="profile-card" style={{ textAlign: "center", padding: "2rem" }}>
-              <p>Loading profile...</p>
-            </div>
-          ) : (
-            <div className="profile-card">
-              <div className="tabs">
-                <button
-                  className={`tab-btn ${activeTab === "profile" ? "active" : ""}`}
-                  onClick={() => setActiveTab("profile")}
-                >
-                  Profile
-                </button>
-                <button
-                  className={`tab-btn ${activeTab === "password" ? "active" : ""}`}
-                  onClick={() => setActiveTab("password")}
-                >
-                  Password
-                </button>
-              </div>
-
-              <h3 className="section-title">Personal Information</h3>
-              <p style={{ marginTop: 0, marginBottom: ".8rem", color: isDark ? "#9ca3af" : "#6b7280", fontSize: ".95rem" }}>
-                Update your personal information and profile details.
-              </p>
-
-              {activeTab === "profile" && (
-                <div className="field-cards">
-                  {profileFields.map((field) => (
-                    <div className="field-card" key={field.label}>
-                      <button className="edit-btn" title="Edit">
-                        <Edit2 size={16} />
-                      </button>
-                      <div className="field-label">{field.label}</div>
-                      <div className="field-value">{field.value}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {activeTab === "password" && (
-                <div className="field-cards">
-                  {message.text && (
-                    <div style={{
-                      padding: "0.75rem 1rem",
-                      borderRadius: "8px",
-                      marginBottom: "1rem",
-                      background: message.type === "success" ? "#d1fae5" : "#fee2e2",
-                      color: message.type === "success" ? "#065f46" : "#991b1b",
-                      border: `1px solid ${message.type === "success" ? "#6ee7b7" : "#fca5a5"}`
-                    }}>
-                      {message.text}
-                    </div>
-                  )}
-                  <div className="field-card">
-                    <div className="field-label">Current Password</div>
-                    <input
-                      type="password"
-                      className="field-input"
-                      value={currentPassword}
-                      onChange={(e) => setCurrentPassword(e.target.value)}
-                      placeholder="Enter current password"
-                    />
-                  </div>
-                  <div className="field-card">
-                    <div className="field-label">New Password</div>
-                    <input
-                      type="password"
-                      className="field-input"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                      placeholder="Enter new password"
-                    />
-                  </div>
-                  <div className="field-card">
-                    <div className="field-label">Confirm Password</div>
-                    <input
-                      type="password"
-                      className="field-input"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="Confirm new password"
-                    />
-                  </div>
-                </div>
-              )}
-
-              <div className="btn-row">
-                <button
-                  className="btn primary"
-                  onClick={() => {
-                    if (activeTab === "password") {
-                      handlePasswordChange();
-                    }
-                  }}
-                >
-                  Save Changes
-                </button>
-                <button
-                  className="btn ghost"
-                  onClick={() => {
-                    const next = !isDark;
-                    setIsDark(next);
-                    localStorage.setItem("dashDark", String(next));
-                    localStorage.setItem("darkMode", String(next));
-                  }}
-                >
-                  {isDark ? "Light Mode" : "Dark Mode"}
-                </button>
-              </div>
-            </div>
-          )}
-        </main>
-=======
-            {/* Basic Information */}
-            <div className="card">
-              <div className="card-title">
-                <Globe size={20} />
-                Basic Information
-              </div>
-              <div className="form-grid">
-                <div className="form-group">
-                  <label className="form-label">Organization Name</label>
-                  <input
-                    className="form-input"
-                    value={editFields.organizationName}
-                    onChange={(e) => setEditFields({ ...editFields, organizationName: e.target.value })}
-                    placeholder="e.g. Green Earth Initiative"
-                  />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Website URL</label>
-                  <input
-                    className="form-input"
-                    value={editFields.website}
-                    onChange={(e) => setEditFields({ ...editFields, website: e.target.value })}
-                    placeholder="https://"
-                  />
-                </div>
-              </div>
-              <div className="form-group">
-                <label className="form-label">Mission Statement</label>
-                <textarea
-                  className="form-textarea"
-                  placeholder="Describe your organization's mission..."
-                  value={editFields.missionStatement}
-                  onChange={(e) => setEditFields({ ...editFields, missionStatement: e.target.value })}
-                  maxLength={500}
-                ></textarea>
-                <div className="char-count">{editFields.missionStatement.length}/500 characters</div>
-              </div>
-            </div>
-
-            {/* Contact and Location */}
-            <div className="form-grid">
-              <div className="card">
-                <div className="card-title">
-                  <Phone size={20} />
-                  Contact Details
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Public Email</label>
-                  <input
-                    className="form-input"
-                    value={editFields.publicEmail}
-                    onChange={(e) => setEditFields({ ...editFields, publicEmail: e.target.value })}
-                  />
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Phone Number</label>
-                  <input
-                    className="form-input"
-                    value={editFields.phoneNumber}
-                    onChange={(e) => setEditFields({ ...editFields, phoneNumber: e.target.value })}
-                    placeholder="+1 (555) 000-0000"
-                  />
-                </div>
-              </div>
-
-              <div className="card">
-                <div className="card-title">
-                  <MapPin size={20} />
-                  Location
-                </div>
-                <div className="form-group">
-                  <label className="form-label">Headquarters Address</label>
-                  <input
-                    className="form-input"
-                    value={editFields.address}
-                    onChange={(e) => setEditFields({ ...editFields, address: e.target.value })}
-                    placeholder="123 Eco Friendly Way"
-                  />
-                </div>
-                <div className="form-grid" style={{ marginBottom: 0, gap: '1rem' }}>
-                  <div className="form-group" style={{ marginBottom: 0 }}>
-                    <label className="form-label">City</label>
-                    <input
-                      className="form-input"
-                      value={editFields.city}
-                      onChange={(e) => setEditFields({ ...editFields, city: e.target.value })}
-                    />
-                  </div>
-                  <div className="form-group" style={{ marginBottom: 0 }}>
-                    <label className="form-label">Country</label>
-                    <select
-                      className="form-input"
-                      value={editFields.country}
-                      onChange={(e) => setEditFields({ ...editFields, country: e.target.value })}
-                    >
-                      <option value="United States">United States</option>
-                      <option value="Canada">Canada</option>
-                      <option value="India">India</option>
-                      <option value="United Kingdom">United Kingdom</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
-
-        {/* VOLUNTEER VERSION (Restored Simple UI) */}
-        {!isNgo && (
-          <div className="card">
-            <div className="card-title">
-              <User size={20} />
-              Personal Information
-            </div>
-            <div className="form-grid">
-              <div className="form-group">
-                <label className="form-label">Username</label>
-                <input
-                  className="form-input"
-                  value={userData?.username || ""}
-                  disabled
-                  style={{ background: '#f3f4f6', cursor: 'not-allowed' }}
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Email Address</label>
-                <input
-                  className="form-input"
-                  value={userData?.email || ""}
-                  disabled
-                  style={{ background: '#f3f4f6', cursor: 'not-allowed' }}
-                />
-              </div>
-            </div>
-            <div className="form-grid">
-              <div className="form-group">
-                <label className="form-label">Full Name</label>
-                <input
-                  className="form-input"
-                  value={editFields.fullName}
-                  onChange={(e) => setEditFields({ ...editFields, fullName: e.target.value })}
-                  placeholder="Your Name"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">Location</label>
-                <input
-                  className="form-input"
-                  value={editFields.location}
-                  onChange={(e) => setEditFields({ ...editFields, location: e.target.value })}
-                  placeholder="City, Country"
-                />
-              </div>
-            </div>
+          <div className="form-grid">
             <div className="form-group">
-              <label className="form-label">Bio</label>
-              <textarea
-                className="form-textarea"
-                placeholder="Tell us about yourself..."
-                value={editFields.missionStatement}
-                onChange={(e) => setEditFields({ ...editFields, missionStatement: e.target.value })}
-                maxLength={300}
-                style={{ minHeight: '100px' }}
-              ></textarea>
-            </div>
-            <div className="form-group">
-              <label className="form-label">Skills (comma separated)</label>
+              <label className="form-label">Organization Name</label>
               <input
                 className="form-input"
-                value={editFields.skills}
-                onChange={(e) => setEditFields({ ...editFields, skills: e.target.value })}
-                placeholder="e.g. Recycling, Logistics, Teaching"
+                value={editFields.organizationName}
+                onChange={(e) => setEditFields({ ...editFields, organizationName: e.target.value })}
+                placeholder="e.g. Green Earth Initiative"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Website URL</label>
+              <input
+                className="form-input"
+                value={editFields.website}
+                onChange={(e) => setEditFields({ ...editFields, website: e.target.value })}
+                placeholder="https://"
               />
             </div>
           </div>
+          <div className="form-group">
+            <label className="form-label">Mission Statement</label>
+            <textarea
+              className="form-textarea"
+              placeholder="Describe your organization's mission..."
+              value={editFields.missionStatement}
+              onChange={(e) => setEditFields({ ...editFields, missionStatement: e.target.value })}
+              maxLength={500}
+            ></textarea>
+            <div className="char-count">{editFields.missionStatement.length}/500 characters</div>
+          </div>
+        </div>
+
+        {/* Contact and Location */}
+        <div className="form-grid">
+          <div className="card">
+            <div className="card-title">
+              <Phone size={20} />
+              Contact Details
+            </div>
+            <div className="form-group">
+              <label className="form-label">Public Email</label>
+              <input
+                className="form-input"
+                value={editFields.publicEmail}
+                onChange={(e) => setEditFields({ ...editFields, publicEmail: e.target.value })}
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Phone Number</label>
+              <input
+                className="form-input"
+                value={editFields.phoneNumber}
+                onChange={(e) => setEditFields({ ...editFields, phoneNumber: e.target.value })}
+                placeholder="+1 (555) 000-0000"
+              />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-title">
+              <MapPin size={20} />
+              Location
+            </div>
+            <div className="form-group">
+              <label className="form-label">Headquarters Address</label>
+              <input
+                className="form-input"
+                value={editFields.address}
+                onChange={(e) => setEditFields({ ...editFields, address: e.target.value })}
+                placeholder="123 Eco Friendly Way"
+              />
+            </div>
+            <div className="form-grid" style={{ marginBottom: 0, gap: '1rem' }}>
+              <div className="form-group" style={{ marginBottom: 0 }}>
+                <label className="form-label">City</label>
+                <input
+                  className="form-input"
+                  value={editFields.city}
+                  onChange={(e) => setEditFields({ ...editFields, city: e.target.value })}
+                />
+              </div>
+              <div className="form-group" style={{ marginBottom: 0 }}>
+                <label className="form-label">Country</label>
+                <select
+                  className="form-input"
+                  value={editFields.country}
+                  onChange={(e) => setEditFields({ ...editFields, country: e.target.value })}
+                >
+                  <option value="United States">United States</option>
+                  <option value="Canada">Canada</option>
+                  <option value="India">India</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
         )}
 
->>>>>>> Stashed changes
-      </div>
+      {/* VOLUNTEER VERSION (Restored Simple UI) */}
+      {!isNgo && (
+        <div className="card">
+          <div className="card-title">
+            <User size={20} />
+            Personal Information
+          </div>
+          <div className="form-grid">
+            <div className="form-group">
+              <label className="form-label">Username</label>
+              <input
+                className="form-input"
+                value={userData?.username || ""}
+                disabled
+                style={{ background: '#f3f4f6', cursor: 'not-allowed' }}
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Email Address</label>
+              <input
+                className="form-input"
+                value={userData?.email || ""}
+                disabled
+                style={{ background: '#f3f4f6', cursor: 'not-allowed' }}
+              />
+            </div>
+          </div>
+          <div className="form-grid">
+            <div className="form-group">
+              <label className="form-label">Full Name</label>
+              <input
+                className="form-input"
+                value={editFields.fullName}
+                onChange={(e) => setEditFields({ ...editFields, fullName: e.target.value })}
+                placeholder="Your Name"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Location</label>
+              <input
+                className="form-input"
+                value={editFields.location}
+                onChange={(e) => setEditFields({ ...editFields, location: e.target.value })}
+                placeholder="City, Country"
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label className="form-label">Bio</label>
+            <textarea
+              className="form-textarea"
+              placeholder="Tell us about yourself..."
+              value={editFields.missionStatement}
+              onChange={(e) => setEditFields({ ...editFields, missionStatement: e.target.value })}
+              maxLength={300}
+              style={{ minHeight: '100px' }}
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label className="form-label">Skills (comma separated)</label>
+            <input
+              className="form-input"
+              value={editFields.skills}
+              onChange={(e) => setEditFields({ ...editFields, skills: e.target.value })}
+              placeholder="e.g. Recycling, Logistics, Teaching"
+            />
+          </div>
+        </div>
+      )}
+
 
     </div>
+
+    </div >
   );
 };
 

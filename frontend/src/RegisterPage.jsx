@@ -20,8 +20,7 @@ export default function RegisterPage() {
     }
   }, [navigate]);
 
-<<<<<<< Updated upstream
-=======
+
   // Google Identity Services (register)
   useEffect(() => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -33,47 +32,47 @@ export default function RegisterPage() {
           window.google.accounts.id.initialize({
             client_id: clientId,
             callback: async (resp) => {
+              try {
+                console.debug('Google credential received (register)', resp);
+                const tokenId = resp.credential;
+                // attempt quick client-side decode to show detected role
                 try {
-                  console.debug('Google credential received (register)', resp);
-                  const tokenId = resp.credential;
-                  // attempt quick client-side decode to show detected role
-                  try {
-                    const parts = tokenId.split('.');
-                    if (parts.length >= 2) {
-                      const payloadJson = atob(parts[1].replace(/-/g, '+').replace(/_/g, '/'));
-                      const payload = JSON.parse(payloadJson);
-                      const gEmail = payload?.email || '';
-                      const domain = String(gEmail).split('@')[1] || '';
-                      const derivedRole = /gmail/i.test(domain) ? 'volunteer' : 'ngo';
-                      setGoogleRole(derivedRole);
-                    }
-                  } catch (e) {
-                    console.debug('Failed to decode Google token payload', e);
+                  const parts = tokenId.split('.');
+                  if (parts.length >= 2) {
+                    const payloadJson = atob(parts[1].replace(/-/g, '+').replace(/_/g, '/'));
+                    const payload = JSON.parse(payloadJson);
+                    const gEmail = payload?.email || '';
+                    const domain = String(gEmail).split('@')[1] || '';
+                    const derivedRole = /gmail/i.test(domain) ? 'volunteer' : 'ngo';
+                    setGoogleRole(derivedRole);
                   }
-
-                  const res = await api.post('/auth/google', { tokenId });
-                  console.debug('Backend /auth/google response (register)', res?.data);
-
-                  if (res?.data?.success) {
-                    localStorage.setItem('token', res.data.token);
-                    localStorage.setItem('name', res.data.user.fullName || res.data.user.username);
-                    localStorage.setItem('role', res.data.user.role);
-                    navigate('/dashboard');
-                    return;
-                  }
-
-                  if (res?.data?.token) {
-                    console.warn('No success flag but token returned (register) — using fallback redirect');
-                    localStorage.setItem('token', res.data.token);
-                    localStorage.setItem('name', res.data.user?.fullName || res.data.user?.username || 'User');
-                    localStorage.setItem('role', res.data.user?.role || googleRole || 'volunteer');
-                    navigate('/dashboard');
-                    return;
-                  }
-                } catch (err) {
-                  console.error('Google register failed', err);
+                } catch (e) {
+                  console.debug('Failed to decode Google token payload', e);
                 }
+
+                const res = await api.post('/auth/google', { tokenId });
+                console.debug('Backend /auth/google response (register)', res?.data);
+
+                if (res?.data?.success) {
+                  localStorage.setItem('token', res.data.token);
+                  localStorage.setItem('name', res.data.user.fullName || res.data.user.username);
+                  localStorage.setItem('role', res.data.user.role);
+                  navigate('/dashboard');
+                  return;
+                }
+
+                if (res?.data?.token) {
+                  console.warn('No success flag but token returned (register) — using fallback redirect');
+                  localStorage.setItem('token', res.data.token);
+                  localStorage.setItem('name', res.data.user?.fullName || res.data.user?.username || 'User');
+                  localStorage.setItem('role', res.data.user?.role || googleRole || 'volunteer');
+                  navigate('/dashboard');
+                  return;
+                }
+              } catch (err) {
+                console.error('Google register failed', err);
               }
+            }
           });
 
           const el = document.getElementById('googleSignInRegister');
@@ -98,7 +97,7 @@ export default function RegisterPage() {
     }
   }, [navigate]);
 
->>>>>>> Stashed changes
+
   const [showPass1, setShowPass1] = useState(false);
   const [showPass2, setShowPass2] = useState(false);
 
@@ -213,7 +212,7 @@ export default function RegisterPage() {
                 <div style={{ padding: '6px 8px', borderRadius: 6, background: role === 'ngo' ? '#e0f2fe' : '#ecfdf5', color: role === 'ngo' ? '#0369a1' : '#065f46', fontWeight: 600 }}>Role: {role || '—'}</div>
                 <div style={{ fontSize: 12, color: '#6b7280' }}>How role is derived</div>
                 <button type="button" onMouseEnter={() => setShowRoleTooltip(true)} onMouseLeave={() => setShowRoleTooltip(false)} onFocus={() => setShowRoleTooltip(true)} onBlur={() => setShowRoleTooltip(false)} aria-label="Role info" style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#9CA3AF" strokeWidth="1.5" /><path d="M11 10h2v6h-2zM11 7h2v2h-2z" fill="#9CA3AF"/></svg>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="#9CA3AF" strokeWidth="1.5" /><path d="M11 10h2v6h-2zM11 7h2v2h-2z" fill="#9CA3AF" /></svg>
                 </button>
                 {showRoleTooltip && (
                   <div style={{ position: 'absolute', top: '36px', left: 0, zIndex: 40, width: 280, background: '#fff', border: '1px solid #e5e7eb', padding: 10, borderRadius: 8, boxShadow: '0 6px 18px rgba(0,0,0,0.08)' }}>
@@ -313,14 +312,13 @@ export default function RegisterPage() {
                   {loading ? "Registering..." : "Register"}
                 </button>
 
-<<<<<<< Updated upstream
-=======
+
                 <div style={{ textAlign: 'center', marginTop: 12 }}>
                   <div id="googleSignInRegister" />
                   <div className="text-sm text-gray-600 mt-2">Google sign-in will register you as: <strong>{googleRole || '—'}</strong></div>
                 </div>
 
->>>>>>> Stashed changes
+
                 <p className="bottom-text">
                   Have an Account?{" "}
                   <span
@@ -330,12 +328,12 @@ export default function RegisterPage() {
                     Click Here To Login
                   </span>
                 </p>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
+              </form >
+            </div >
+          </div >
+        </div >
+      </div >
+    </div >
       <div className="footer-bar">COPYRIGHT 2024 WASTEWISE.COM ALL RIGHTS RESERVED</div>
     </>
   );

@@ -1,14 +1,3 @@
-<<<<<<< Updated upstream
-export default function PageHeader({ title, subtitle }) {
-  return (
-    <div className="mb-6">
-      <h1 className="text-2xl font-semibold">{title}</h1>
-      {subtitle && (
-        <p className="text-sm text-gray-600 dark:text-gray-400">
-          {subtitle}
-        </p>
-      )}
-=======
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -91,7 +80,6 @@ export default function PageHeader({ title, subtitle, dropdownContent }) {
           )}
         </div>
       </div>
->>>>>>> Stashed changes
     </div>
   );
 }

@@ -29,13 +29,13 @@ export default function Settings() {
         try {
           const raw = localStorage.getItem(STORAGE_KEY);
           if (raw) setSettings(JSON.parse(raw));
-        } catch (e) {}
+        } catch (e) { }
       }
     }).catch(() => {
       try {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw) setSettings(JSON.parse(raw));
-      } catch (e) {}
+      } catch (e) { }
     });
     return () => { mounted = false; };
   }, []);
@@ -64,37 +64,26 @@ export default function Settings() {
 
   const resetDefaults = async () => {
     setSettings(defaultSettings);
-    try { localStorage.removeItem(STORAGE_KEY); await api.put('/settings', defaultSettings); } catch (e) {}
+    try { localStorage.removeItem(STORAGE_KEY); await api.put('/settings', defaultSettings); } catch (e) { }
     setToast('Reset to defaults');
     setTimeout(() => setToast(''), 2200);
   };
 
   return (
-<<<<<<< Updated upstream
-    <div className="min-h-screen p-6 bg-gray-50 dark:bg-[#0f172a]">
-      <div className="max-w-5xl mx-auto bg-white dark:bg-[#111827] rounded-xl shadow p-6">
-=======
     <div className="min-h-screen p-6 bg-gray-50">
       <div className="max-w-3xl mx-auto bg-white rounded-xl shadow p-6">
         <PageHeader title="Settings" subtitle="Personalize your WasteWise and AI assistant experience." />
->>>>>>> Stashed changes
 
         {toast && (
           <div className="mb-4 p-3 rounded bg-waste-green/10 text-waste-dark-green transition-all">{toast}</div>
         )}
 
-<<<<<<< Updated upstream
-        <div className="space-y-4">
-          <SettingItem title="Dark Mode" desc="Toggle theme appearance" />
-          <SettingItem title="Notifications" desc="Manage alerts" />
-        </div>
-=======
         <section className="space-y-6">
           <div className="transition-all">
-            <h4 className="font-semibold flex items-center gap-2">AI Assistant Mode <Info size={14} className="text-gray-400" title="Controls assistant response style"/></h4>
+            <h4 className="font-semibold flex items-center gap-2">AI Assistant Mode <Info size={14} className="text-gray-400" title="Controls assistant response style" /></h4>
             <p className="text-sm text-gray-500">Choose how the assistant responds.</p>
             <div className="mt-3 flex gap-2">
-              {['concise','balanced','creative'].map(m => (
+              {['concise', 'balanced', 'creative'].map(m => (
                 <button
                   key={m}
                   onClick={() => setSettings(s => ({ ...s, aiMode: m }))}
@@ -106,10 +95,10 @@ export default function Settings() {
               ))}
             </div>
           </div>
->>>>>>> Stashed changes
+
 
           <div className="transition-all">
-            <h4 className="font-semibold flex items-center gap-2">AI Behavior <Info size={14} className="text-gray-400" title="Behavioral controls for the assistant"/></h4>
+            <h4 className="font-semibold flex items-center gap-2">AI Behavior <Info size={14} className="text-gray-400" title="Behavioral controls for the assistant" /></h4>
             <div className="flex items-center gap-6 mt-3">
               <label className="flex items-center gap-2">
                 <input type="checkbox" checked={settings.historyEnabled} onChange={(e) => setSettings(s => ({ ...s, historyEnabled: e.target.checked }))} />
@@ -130,7 +119,7 @@ export default function Settings() {
             <h4 className="font-semibold">Theme</h4>
             <p className="text-sm text-gray-500">Control application theme.</p>
             <div className="mt-2 flex gap-2">
-              {['system','light','dark'].map(t => (
+              {['system', 'light', 'dark'].map(t => (
                 <button key={t} onClick={() => setSettings(s => ({ ...s, theme: t }))} className={`px-3 py-2 rounded ${settings.theme === t ? 'bg-waste-green text-white' : 'bg-gray-100'}`}>{t.charAt(0).toUpperCase() + t.slice(1)}</button>
               ))}
             </div>
@@ -145,15 +134,3 @@ export default function Settings() {
     </div>
   );
 }
-
-<<<<<<< Updated upstream
-function SettingItem({ title, desc }) {
-  return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5">
-      <h3 className="font-semibold">{title}</h3>
-      <p className="text-sm text-gray-500 dark:text-gray-400">{desc}</p>
-    </div>
-  );
-}
-=======
->>>>>>> Stashed changes
